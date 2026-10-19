@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Nav links and the logo scroll smoothly (instantly for people who prefer
+     reduced motion). The offset is the sticky header height, 4rem on mobile and
+     4.75rem from `lg`, so a section never lands underneath it. */
+  html {
+    @apply scroll-pt-16 scroll-smooth motion-reduce:scroll-auto lg:scroll-pt-19;
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+}
+
+@layer components {
+  /* The one page width: centred, capped at 90rem (1440px), with the shared
+     gutters (1.25rem on mobile, 4rem from `lg`). Every section uses it. */
+  .container {
+    @apply mx-auto w-full max-w-container px-gutter lg:px-gutter-lg;
+  }
+
+  /* A constant pace is what keeps the infinite logo slider smooth. */
+  .marquee {
+    --swiper-wrapper-transition-timing-function: linear;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Workflow tab panels sit on top of each other in the same grid cell, so
+     switching tabs never changes the layout. The outgoing panel fades out
+     first, then the incoming one fades up. It only moves back down after it
+     is invisible, so nothing ever jumps. */
+  .tab-panel {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    pointer-events: none;
+    will-change: opacity, transform;
+    transition:
+      opacity 150ms ease-in,
+      transform 0s linear 150ms;
+  }
+
+  .tab-panel[data-active='true'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition:
+      opacity 400ms ease-out 150ms,
+      transform 400ms ease-out 150ms;
+  }
+
+  .tab-bar-fill {
+    width: 0;
+    transition: width 0s linear 150ms;
+  }
+
+  .tab-panel[data-active='true'] .tab-bar-fill {
+    width: var(--fill);
+    transition: width 700ms ease-out 250ms;
+  }
+
+  /* Testimonial slides are stacked in one grid cell, like the workflow panels.
+     The old slide fades out toward its side first, then the new one slides in
+     from the opposite side. They never overlap, so the text never blends. */
+  .testimonial-slide {
+    opacity: 0;
+    pointer-events: none;
+    will-change: opacity, transform;
+    transition:
+      opacity 200ms ease-in,
+      transform 200ms ease-in;
+  }
+
+  .testimonial-slide[data-position='before'] {
+    transform: translateX(-1.5rem);
+  }
+
+  .testimonial-slide[data-position='after'] {
+    transform: translateX(1.5rem);
+  }
+
+  .testimonial-slide[data-position='active'] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition:
+      opacity 450ms ease-out 200ms,
+      transform 450ms ease-out 200ms;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-slide,
+    .testimonial-slide[data-position='active'] {
+      transition: none;
+    }
+
+    .tab-panel,
+    .tab-panel[data-active='true'],
+    .tab-bar-fill,
+    .tab-panel[data-active='true'] .tab-bar-fill {
+      transform: none;
+      transition: none;
+    }
+  }
+}
