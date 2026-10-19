@@ -5,7 +5,7 @@ import { mobileMenuItems, navItems } from './data/navigation'
 const targetId = (href: string) => href.replace('#', '')
 
 // Sections that are not built yet, so their links have nothing to scroll to.
-const pendingTargets = ['pricing', 'faq']
+const pendingTargets = ['faq']
 
 describe('App navigation targets', () => {
   it('has a section for every built navigation link', () => {
@@ -35,6 +35,5 @@ describe('App navigation targets', () => {
       })
   })
 
-  it.todo('has a Pricing section for the #pricing link')
   it.todo('has an FAQ section for the #faq link')
 })

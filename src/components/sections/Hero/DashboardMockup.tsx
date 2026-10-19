@@ -19,7 +19,7 @@ export function DashboardMockup() {
   return (
     <div
       aria-hidden="true"
-      className="flex overflow-hidden rounded-card border border-line bg-white p-3.5 shadow-card md:h-107.5 md:gap-4 md:p-4"
+      className="flex overflow-hidden rounded-card border border-line bg-white p-3.5 shadow-raised md:h-107.5 md:gap-4 md:p-4"
     >
       <div className="w-27.5 shrink-0 rounded-panel border border-hairline bg-surface p-2.5 md:w-37.5 md:border-0 md:p-4">
         <p className="mb-2.5 p-1 text-nav font-bold text-ink md:mb-4 md:p-0 md:text-logo md:tracking-normal">
